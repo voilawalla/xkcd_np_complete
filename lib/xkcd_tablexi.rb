@@ -1,0 +1,5 @@
+require_relative 'xkcd_tablexi/currency'
+require_relative 'xkcd_tablexi/file_reader'
+require_relative 'xkcd_tablexi/item'
+require_relative 'xkcd_tablexi/menu'
+require_relative 'xkcd_tablexi/order'

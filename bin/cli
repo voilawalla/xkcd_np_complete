@@ -1,0 +1,53 @@
+#!/usr/bin/env ruby
+
+#the above line grabs the first ruby version found in the file path ... and then we move on:
+# 
+require File.join(File.dirname(__dir__), 'lib/xkcd_tablexi')
+require 'optparse'
+
+  #the following class governs the input, passes off to the calculation files, and returns to present the output
+  class CLI
+    def initialize(file_reader = FileReader, order = Order)
+      @options = {}
+      parse_options
+
+      @reader = file_reader.new(options[:file])
+      @order = order.new(reader.target_price, Menu.new(reader.items))
+      output_combinations
+      # p output_combinations
+
+    end
+
+    #once data is received via the command line, we protect our treatment of it -- even if the stuff is not Defcon 8 material, it is only germane to this class plus we only want a specific kind of usable data passed along to the rest of our calculations
+    private
+    attr_reader :reader, :order, :options
+
+    #With the OptionsParser class we surmise reasonable input attempts, specify options and mandatory arguments, and in the absence of usable data, raise an error along with a suggestion of proper syntax
+    def parse_options
+      OptionParser.new do |opts|
+        opts.on("-f", "--file FILE", "Mandatory data file") do |file|
+          options[:file] = file
+        end
+      end.parse!
+      raise OptionParser::MissingArgument, 'Specify a file with -f FILE' if options[:file].nil?
+    end
+
+    #this method matches the menu combinations or lack thereof to a command-line message and prints it coherently
+    def output_combinations
+      combinations = order.find_combinations
+      puts no_combinations_message if combinations.empty?
+      order.find_combinations.each do |items|
+        puts ""
+        puts items.to_output
+        puts "*" * 20
+        puts ""
+      end
+    end
+
+    #and, finally, this method is the last resort: It responds if the command-line input is valid BUT all computations come up empty-handed   
+    def no_combinations_message
+      "Apologies, but none of our menu combinations add up to your target price."
+    end
+  end
+
+CLI.new

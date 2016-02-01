@@ -1,0 +1,7 @@
+$13.00
+taco,$2.00
+torta1,$4.00
+torta2,$4.00
+burrito,$8.00
+thingie,$15.00
+test,$1.00

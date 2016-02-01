@@ -1,0 +1,5 @@
+$5.00
+fish,$1.00
+beef,$1.00
+chicken,$1.00
+thingie,$6.00
