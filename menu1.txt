@@ -1,6 +1,0 @@
-$6.00
-toast,$1.00
-better toast,$1.50
-butter,$2.00
-soda,$3.00
-thingie, $7.05
